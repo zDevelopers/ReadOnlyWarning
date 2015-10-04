@@ -1,7 +1,7 @@
-package prokopowicz.alex.managers;
+package fr.prokopowicz.alex.managers;
 
 
-import prokopowicz.alex.rawtypes.ReadOnlyPlayer;
+import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
 
 import java.util.HashMap;
 import java.util.Map;

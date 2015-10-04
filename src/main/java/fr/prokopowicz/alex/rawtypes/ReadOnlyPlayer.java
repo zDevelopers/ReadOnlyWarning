@@ -1,4 +1,4 @@
-package prokopowicz.alex.rawtypes;
+package fr.prokopowicz.alex.rawtypes;
 
 import java.util.UUID;
 
