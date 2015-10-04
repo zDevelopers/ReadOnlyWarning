@@ -2,4 +2,6 @@ name: ReadOnlyWarning
 description: Warns a player with a read-only word
 main: fr.prokopowicz.alex.ReadOnlyWarning
 version: 1.0
-authors: ["Jenjeur", "Amaury Carrade"]
+author: "Jenjeur"
+authors:
+  - "Amaury Carrade"
