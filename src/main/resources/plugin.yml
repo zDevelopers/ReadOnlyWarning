@@ -1,6 +1,6 @@
 name: ReadOnlyWarning
 description: Warns a player with a read-only word
-main: fr.ReadOnlyWarning
+main: fr.prokopowicz.alex.ReadOnlyWarning
 version: 1.0
 author: "Jenjeur"
 authors:
