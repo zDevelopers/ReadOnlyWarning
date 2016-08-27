@@ -5,3 +5,7 @@ version: 1.0
 author: "Jenjeur"
 authors:
   - "Amaury Carrade"
+
+commands:
+    ro:
+        description: Places a player on the read only list
