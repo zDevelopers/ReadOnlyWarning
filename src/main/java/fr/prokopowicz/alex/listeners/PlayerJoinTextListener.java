@@ -11,8 +11,5 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PlayerJoinTextListener implements Listener{
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
-        event.getPlayer().sendMessage("Pomf");
-        event.getPlayer().sendMessage("" + ChatColor.RED + ChatColor.UNDERLINE + "Splotch");
-        event.getPlayer().sendMessage("Thanks for using ReadOnlyWarning V.-0.9 Please report any troubleshooting at 06.42.69.42.69");
     }
 }
