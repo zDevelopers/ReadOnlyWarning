@@ -10,7 +10,7 @@
       "/Ro <Insérer le pseudonyme> <Insérer votre motif à la con>" "/UnRo <Insérer le pseudonyme>" "/roinfos"
   Demi-Check 1 : Stocker une liste des gens en lecture seule
        Et le faire bien (pas comme zyuiop/Blue)
-   2 : Bloquer toute interaction
+  Check 2 : Bloquer toute interaction
        Ecouter et interdire des évènements (NSA-Zcraft)
    3 : Afficher un message à la connexion + un message périodique
        "<Gros titre> LECTURE SEULE (waa)</Gros titre>
