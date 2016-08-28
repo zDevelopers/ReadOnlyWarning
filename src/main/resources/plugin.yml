@@ -9,3 +9,7 @@ authors:
 commands:
     ro:
         description: Places a player on the read only list
+    unro:
+        description: Removes a player from the read only list
+    roinfos:
+        description: Gives infos

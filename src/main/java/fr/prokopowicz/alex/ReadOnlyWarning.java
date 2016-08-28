@@ -1,6 +1,8 @@
 package fr.prokopowicz.alex;
 
 import fr.prokopowicz.alex.commands.ReadOnlyCommand;
+import fr.prokopowicz.alex.commands.ReadOnlyInfosCommand;
+import fr.prokopowicz.alex.commands.UnReadOnlyCommand;
 import fr.prokopowicz.alex.listeners.PlayerInteractionListener;
 import fr.prokopowicz.alex.listeners.PlayerWarningListener;
 import fr.prokopowicz.alex.managers.ReadOnlyPlayersManager;
@@ -21,6 +23,8 @@ public class ReadOnlyWarning extends ZPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerWarningListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerInteractionListener(), this);
 		getServer().getPluginCommand("ro").setExecutor(new ReadOnlyCommand());
+		getServer().getPluginCommand("unro").setExecutor(new UnReadOnlyCommand());
+		getServer().getPluginCommand("roinfos").setExecutor(new ReadOnlyInfosCommand());
 
 		readOnlyPlayersManager = new ReadOnlyPlayersManager();
 	}

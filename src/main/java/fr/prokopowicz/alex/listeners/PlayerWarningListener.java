@@ -21,14 +21,15 @@ public class PlayerWarningListener implements Listener{
         final UUID cot = event.getPlayer() .getUniqueId();
         RunTask.timer(new Runnable() {
             @Override
-            public void run() {
+            public void run()
+            {
                 ReadOnlyPlayer ericsaget = ReadOnlyWarning.getInstance() .getReadOnlyPlayersManager() .getReadOnlyPlayer(cot);
                 Player pomme = ReadOnlyWarning.getInstance() .getServer() .getPlayer(cot);
                 if (ericsaget != null && pomme != null && pomme .isOnline())
                 {
                     pomme.sendMessage("");
                     pomme.sendMessage(ChatColor.BOLD + "You've been placed in read only, asshole");
-                    pomme.sendMessage("Reason:" + ericsaget.getReason());
+                    pomme.sendMessage("Reason: " + ericsaget.getReason());
                     pomme.sendMessage("Please explain yourself on the forum at https://forum.zcraft.fr/viewtopic.php?id=1980");
                     pomme.sendMessage("");
 
