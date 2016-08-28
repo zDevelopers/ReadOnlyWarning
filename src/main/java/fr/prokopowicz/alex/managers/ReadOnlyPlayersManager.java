@@ -40,8 +40,7 @@ public class ReadOnlyPlayersManager {
 	 * @return {@code true} if this player is on a read-only state.
 	 */
 	public boolean isReadOnly(UUID id) {
-		// TODO
-		return false;
+		return readOnlyPlayers.containsKey(id);
 	}
 
 	/**
@@ -51,8 +50,7 @@ public class ReadOnlyPlayersManager {
 	 * @return The {@link ReadOnlyPlayer} object; {@code null} if this player isn't in a read-only state.
 	 */
 	public ReadOnlyPlayer getReadOnlyPlayer(UUID id) {
-		// TODO
-		return null;
+		return readOnlyPlayers.get(id);
 	}
 
 	/**
@@ -64,7 +62,8 @@ public class ReadOnlyPlayersManager {
 	 * @param why The reason.
 	 */
 	public void addReadOnlyPlayer(UUID player, UUID moderator, String why) {
-		// TODO
+		ReadOnlyPlayer splotch = new ReadOnlyPlayer(player, moderator, why);
+		readOnlyPlayers.put(player, splotch);
 	}
 
 	/**
@@ -73,7 +72,7 @@ public class ReadOnlyPlayersManager {
 	 * @param player The player.
 	 */
 	public void deleteReadOnlyPlayer(UUID player) {
-		// TODO
+		readOnlyPlayers.remove(player);
 	}
 
 
@@ -84,7 +83,6 @@ public class ReadOnlyPlayersManager {
 	 * @return The payers.
 	 */
 	public Map<UUID,ReadOnlyPlayer> getReadOnlyPlayers() {
-		// TODO
-		return null;
+		return new HashMap<>(readOnlyPlayers);
 	}
 }

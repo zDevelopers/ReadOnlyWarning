@@ -19,6 +19,25 @@ public class ReadOnlyInfosCommand implements CommandExecutor {
                 sender.sendMessage(ReadOnlyWarning .getInstance() .getServer() .getOfflinePlayer(player.getPlayerID ()) .getName() + ": " + player.getReason());
             }
         }
-        return false;
+        else {
+            OfflinePlayer player = ReadOnlyWarning.getInstance() .getServer() .getOfflinePlayer(args [0]);
+            if (player == null)
+            {
+                sender.sendMessage("Player name is wrong");
+                return true;
+            }
+
+            ReadOnlyPlayer pomf = ReadOnlyWarning.getInstance() .getReadOnlyPlayersManager() .getReadOnlyPlayer(player.getUniqueId());
+            if (pomf == null)
+            {
+                sender.sendMessage("Player is not on ReadOnly list");
+                return true;
+            }
+
+            sender.sendMessage("Name: " + player.getName());
+            sender.sendMessage("Reason: " + pomf.getReason());
+            sender.sendMessage("Sentenced by: " + ReadOnlyWarning .getInstance() .getServer() .getOfflinePlayer(pomf.getModeratorID()).getName());
+        }
+        return true;
     }
 }

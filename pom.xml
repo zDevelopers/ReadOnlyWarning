@@ -6,9 +6,9 @@
   <name>ReadOnlyWarning</name>
   <description></description>
   <!--Checklist
-   0 : Ajouter une commande pour placer/retirer une personne sur la liste de lecture seule
+  Check 0 : Ajouter une commande pour placer/retirer une personne sur la liste de lecture seule
       "/Ro <Insérer le pseudonyme> <Insérer votre motif à la con>" "/UnRo <Insérer le pseudonyme>" "/roinfos"
-   1 : Stocker une liste des gens en lecture seule
+  Demi-Check 1 : Stocker une liste des gens en lecture seule
        Et le faire bien (pas comme zyuiop/Blue)
    2 : Bloquer toute interaction
        Ecouter et interdire des évènements (NSA-Zcraft)
