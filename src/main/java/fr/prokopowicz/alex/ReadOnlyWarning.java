@@ -8,33 +8,40 @@ import fr.prokopowicz.alex.listeners.PlayerWarningListener;
 import fr.prokopowicz.alex.managers.ReadOnlyPlayersManager;
 import fr.zcraft.zlib.core.ZPlugin;
 
+
 /**
  * Created by Alexandre on 03/06/2015.
  */
-public class ReadOnlyWarning extends ZPlugin {
+public class ReadOnlyWarning extends ZPlugin
+{
 
-	private static ReadOnlyWarning instance;
+    private static ReadOnlyWarning instance;
 
-	private ReadOnlyPlayersManager readOnlyPlayersManager;
+    private ReadOnlyPlayersManager readOnlyPlayersManager;
 
-	@Override
-	public void onEnable() {
-		instance = this;
-		getServer().getPluginManager().registerEvents(new PlayerWarningListener(), this);
-		getServer().getPluginManager().registerEvents(new PlayerInteractionListener(), this);
-		getServer().getPluginCommand("ro").setExecutor(new ReadOnlyCommand());
-		getServer().getPluginCommand("unro").setExecutor(new UnReadOnlyCommand());
-		getServer().getPluginCommand("roinfos").setExecutor(new ReadOnlyInfosCommand());
+    @Override
+    public void onEnable()
+    {
+        instance = this;
 
-		readOnlyPlayersManager = new ReadOnlyPlayersManager();
-	}
+        readOnlyPlayersManager = new ReadOnlyPlayersManager();
+
+        getServer().getPluginManager().registerEvents(new PlayerWarningListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractionListener(), this);
+
+        getServer().getPluginCommand("ro").setExecutor(new ReadOnlyCommand());
+        getServer().getPluginCommand("unro").setExecutor(new UnReadOnlyCommand());
+        getServer().getPluginCommand("roinfos").setExecutor(new ReadOnlyInfosCommand());
+    }
 
 
-	public ReadOnlyPlayersManager getReadOnlyPlayersManager() {
-		return readOnlyPlayersManager;
-	}
+    public ReadOnlyPlayersManager getReadOnlyPlayersManager()
+    {
+        return readOnlyPlayersManager;
+    }
 
-	public static ReadOnlyWarning getInstance() {
-		return instance;
-	}
+    public static ReadOnlyWarning get()
+    {
+        return instance;
+    }
 }

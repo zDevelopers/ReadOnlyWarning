@@ -12,20 +12,25 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;
 
+
 /**
  * Created by Alexandre on 03/06/2015.
  */
-public class PlayerWarningListener implements Listener{
+public class PlayerWarningListener implements Listener
+{
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event){
-        final UUID cot = event.getPlayer() .getUniqueId();
-        RunTask.timer(new Runnable() {
+    public void onPlayerJoin(PlayerJoinEvent event)
+    {
+        final UUID cot = event.getPlayer().getUniqueId();
+        RunTask.timer(new Runnable()
+        {
             @Override
             public void run()
             {
-                ReadOnlyPlayer ericsaget = ReadOnlyWarning.getInstance() .getReadOnlyPlayersManager() .getReadOnlyPlayer(cot);
-                Player pomme = ReadOnlyWarning.getInstance() .getServer() .getPlayer(cot);
-                if (ericsaget != null && pomme != null && pomme .isOnline())
+                final ReadOnlyPlayer ericsaget = ReadOnlyWarning.get().getReadOnlyPlayersManager().getReadOnlyPlayer(cot);
+                final Player pomme = ReadOnlyWarning.get().getServer().getPlayer(cot);
+
+                if (ericsaget != null && pomme != null && pomme.isOnline())
                 {
                     pomme.sendMessage("");
                     pomme.sendMessage(ChatColor.BOLD + "You've been placed in read only, asshole");
@@ -36,6 +41,6 @@ public class PlayerWarningListener implements Listener{
                     Titles.displayTitle(pomme, 10, 120, 10, ChatColor.RED + "READ ONLY (waa)", "");
                 }
             }
-        }, 2L, 10*60*20);
+        }, 2L, 10 * 60 * 20);
     }
 }
