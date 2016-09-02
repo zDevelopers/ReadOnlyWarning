@@ -1,5 +1,9 @@
 package fr.prokopowicz.alex.rawtypes;
 
+import fr.prokopowicz.alex.ReadOnlyWarning;
+import fr.prokopowicz.alex.tasks.WarningTask;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import java.util.UUID;
 
 
@@ -8,7 +12,6 @@ import java.util.UUID;
  */
 public class ReadOnlyPlayer
 {
-
     /**
      * The player in a read-only state.
      */
@@ -24,6 +27,11 @@ public class ReadOnlyPlayer
      */
     private String reason;
 
+    /**
+     * The task used to send the warning messages about readonly mode, null if player offline
+     */
+    private BukkitRunnable warningTask = null;
+
 
     public ReadOnlyPlayer(UUID playerID, UUID moderatorID, String reason)
     {
@@ -34,14 +42,26 @@ public class ReadOnlyPlayer
 
 
     /**
-     * Sends a warning message to this player about his state.
-     *
-     * @return {@code true} if the message was sent (i.e. the player is online).
+     * Starts the task sending a warning message to this player about his state.
      */
-    public boolean sendWarningMessage()
+    public void displayRegularWarning()
     {
-        // TODO
-        return true;
+        stopWarningDisplay();
+
+        warningTask = new WarningTask(this);
+        warningTask.runTaskTimer(ReadOnlyWarning.get(), 2l, 20*60*10l);
+    }
+
+    /**
+     * Stops the task sending a warning message to this player about his state.
+     */
+    public void stopWarningDisplay()
+    {
+        if (warningTask != null)
+        {
+            warningTask.cancel();
+            warningTask = null;
+        }
     }
 
 

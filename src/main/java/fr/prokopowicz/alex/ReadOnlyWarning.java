@@ -14,7 +14,6 @@ import fr.zcraft.zlib.core.ZPlugin;
  */
 public class ReadOnlyWarning extends ZPlugin
 {
-
     private static ReadOnlyWarning instance;
 
     private ReadOnlyPlayersManager readOnlyPlayersManager;

@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public class ReadOnlyPlayersManager
 {
-
     private Map<UUID, ReadOnlyPlayer> readOnlyPlayers = new HashMap<>();
 
 
@@ -69,11 +68,15 @@ public class ReadOnlyPlayersManager
      * @param player    The player to put in a read-only state.
      * @param moderator The player who put this player in this state.
      * @param why       The reason.
+     *
+     * @return The {@link ReadOnlyPlayer} object just created and registered.
      */
-    public void addReadOnlyPlayer(UUID player, UUID moderator, String why)
+    public ReadOnlyPlayer addReadOnlyPlayer(UUID player, UUID moderator, String why)
     {
-        ReadOnlyPlayer splotch = new ReadOnlyPlayer(player, moderator, why);
+        final ReadOnlyPlayer splotch = new ReadOnlyPlayer(player, moderator, why);
         readOnlyPlayers.put(player, splotch);
+
+        return splotch;
     }
 
     /**
@@ -81,10 +84,11 @@ public class ReadOnlyPlayersManager
      * locked.
      *
      * @param player The player.
+     * @return The {@link ReadOnlyPlayer} object just removed, and no longer registered.
      */
-    public void deleteReadOnlyPlayer(UUID player)
+    public ReadOnlyPlayer deleteReadOnlyPlayer(UUID player)
     {
-        readOnlyPlayers.remove(player);
+        return readOnlyPlayers.remove(player);
     }
 
 

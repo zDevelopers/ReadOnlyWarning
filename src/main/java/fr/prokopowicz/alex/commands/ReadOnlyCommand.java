@@ -1,6 +1,7 @@
 package fr.prokopowicz.alex.commands;
 
 import fr.prokopowicz.alex.ReadOnlyWarning;
+import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -35,7 +36,17 @@ public class ReadOnlyCommand implements CommandExecutor
             motif = motif + args[i] + " ";
         }
 
-        ReadOnlyWarning.get().getReadOnlyPlayersManager().addReadOnlyPlayer(player.getUniqueId(), sender instanceof Player ? ((Player) sender).getUniqueId() : null, motif);
+        ReadOnlyPlayer roPlayer = ReadOnlyWarning.get().getReadOnlyPlayersManager().addReadOnlyPlayer(
+                player.getUniqueId(),
+                sender instanceof Player ? ((Player) sender).getUniqueId() : null,
+                motif
+        );
+
+        if (player.isOnline())
+        {
+            roPlayer.displayRegularWarning();
+        }
+
         sender.sendMessage("Player successfully placed in ReadOnly mode");
 
         return true;

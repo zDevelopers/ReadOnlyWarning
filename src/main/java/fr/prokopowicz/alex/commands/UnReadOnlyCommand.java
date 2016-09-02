@@ -1,6 +1,7 @@
 package fr.prokopowicz.alex.commands;
 
 import fr.prokopowicz.alex.ReadOnlyWarning;
+import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,8 +29,18 @@ public class UnReadOnlyCommand implements CommandExecutor
             return true;
         }
 
-        ReadOnlyWarning.get().getReadOnlyPlayersManager().deleteReadOnlyPlayer(player.getUniqueId());
-        sender.sendMessage("Player successfully removed from ReadOnly mode");
+        final ReadOnlyPlayer roPlayer = ReadOnlyWarning.get().getReadOnlyPlayersManager().deleteReadOnlyPlayer(player.getUniqueId());
+
+        if (roPlayer != null)
+        {
+            roPlayer.stopWarningDisplay();
+            sender.sendMessage("Player successfully removed from read-only mode");
+        }
+        else
+        {
+            sender.sendMessage("This player is not in read-only mode.");
+        }
+
         return true;
     }
 }
