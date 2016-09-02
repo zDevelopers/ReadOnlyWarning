@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>prokopowicz.alex</groupId>
+  <groupId>fr.prokopowicz.alex</groupId>
   <artifactId>ReadOnlyWarning</artifactId>
   <version>1.0</version>
   <name>ReadOnlyWarning</name>
-  <description></description>
+  <description>Players are placed read-only to replace a ban for explanations</description>
   <!--Checklist
   Check 0 : Ajouter une commande pour placer/retirer une personne sur la liste de lecture seule
       "/Ro <Insérer le pseudonyme> <Insérer votre motif à la con>" "/UnRo <Insérer le pseudonyme>" "/roinfos"
