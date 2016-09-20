@@ -1,11 +1,23 @@
 package fr.prokopowicz.alex.tasks;
 
+import fr.prokopowicz.alex.ROConfig;
 import fr.prokopowicz.alex.ReadOnlyWarning;
 import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
+import fr.zcraft.zlib.components.i18n.I;
+import fr.zcraft.zlib.components.rawtext.RawText;
+import fr.zcraft.zlib.tools.PluginLogger;
+import fr.zcraft.zlib.tools.text.RawMessage;
 import fr.zcraft.zlib.tools.text.Titles;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.ChatPaginator;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WarningTask extends BukkitRunnable
@@ -24,13 +36,88 @@ public class WarningTask extends BukkitRunnable
 
         if (player != null && player.isOnline())
         {
+            final String header  = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.HEADER.get());
+            final String message = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.MESSAGE.get());
+            final String link    = ROConfig.WARNING_MESSAGE.LINK.get();
+            final String footer  = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.FOOTER.get());
+
+            final String moderatorName = Bukkit.getOfflinePlayer(warnedPlayer.getModeratorID()).getName();
+
+
             player.sendMessage("");
-            player.sendMessage(ChatColor.BOLD + "You've been placed in read only, asshole");
-            player.sendMessage("Reason: " + warnedPlayer.getReason());
-            player.sendMessage("Please explain yourself on the forum at https://forum.zcraft.fr/viewtopic.php?id=1980");
+            if (!header.trim().isEmpty()) player.sendRawMessage(header);
+
+            sendSplitText(player, I.t("You've been placed in read-only by {darkgreen}{0}{reset}, because of the following:", moderatorName));
             player.sendMessage("");
 
-            Titles.displayTitle(player, 10, 120, 10, ChatColor.RED + "READ ONLY (waa)", "");
+            for (final String line : splitText(warnedPlayer.getReason()))
+            {
+                player.sendMessage(centerText(ChatColor.GOLD + line));
+            }
+
+            if (!message.trim().isEmpty())
+            {
+                player.sendMessage("");
+
+                if (link.isEmpty())
+                {
+                    sendSplitText(player, message);
+                }
+                else
+                {
+                    try
+                    {
+                        for (final String line : splitText(message))
+                        {
+                            RawMessage.send(player, new RawText(line).uri(link).hover(new RawText(I.t("Open the link: {0}", link))).build());
+                        }
+                    }
+                    catch (URISyntaxException e)
+                    {
+                        PluginLogger.error("Invalid link: {0}", link);
+                        sendSplitText(player, message);
+                    }
+                }
+            }
+
+            if (!footer.trim().isEmpty()) player.sendRawMessage(footer);
+
+
+            Titles.displayTitle(player, 10, 120, 10, I.t("{red}Read only"), I.t("{yellow}Why? Please read the chat."));
         }
+    }
+
+    private String centerText(String text)
+    {
+        final int shift = (ChatPaginator.AVERAGE_CHAT_PAGE_WIDTH / 2) - (ChatColor.stripColor(text).length() / 2);
+
+        return StringUtils.repeat(" ", shift) + text;
+    }
+
+    private List<String> splitText(final String text)
+    {
+        final List<String> lines = new ArrayList<>();
+        String line = "";
+
+        for (final String word : text.split(" "))
+        {
+            if (line.length() >= ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH)
+            {
+                lines.add(line.trim());
+                line = ChatColor.getLastColors(line);
+            }
+
+            line += word + " ";
+        }
+
+        lines.add(line.trim());
+
+        return lines;
+    }
+
+    private void sendSplitText(final Player player, final String text)
+    {
+        for (final String line : splitText(text))
+            player.sendMessage(line);
     }
 }

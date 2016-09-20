@@ -6,6 +6,8 @@ import fr.prokopowicz.alex.commands.UnReadOnlyCommand;
 import fr.prokopowicz.alex.listeners.PlayerInteractionListener;
 import fr.prokopowicz.alex.listeners.PlayerWarningListener;
 import fr.prokopowicz.alex.managers.ReadOnlyPlayersManager;
+import fr.zcraft.zlib.components.i18n.I18n;
+import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZPlugin;
 
 
@@ -23,10 +25,16 @@ public class ReadOnlyWarning extends ZPlugin
     {
         instance = this;
 
-        readOnlyPlayersManager = new ReadOnlyPlayersManager();
+        saveDefaultConfig();
 
-        getServer().getPluginManager().registerEvents(new PlayerWarningListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerInteractionListener(), this);
+        loadComponents(I18n.class, ROConfig.class);
+
+        I18n.useDefaultPrimaryLocale();
+
+        readOnlyPlayersManager = loadComponent(ReadOnlyPlayersManager.class);
+
+        ZLib.registerEvents(new PlayerWarningListener());
+        ZLib.registerEvents(new PlayerInteractionListener());
 
         getServer().getPluginCommand("ro").setExecutor(new ReadOnlyCommand());
         getServer().getPluginCommand("unro").setExecutor(new UnReadOnlyCommand());

@@ -2,20 +2,28 @@ package fr.prokopowicz.alex.managers;
 
 
 import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
+import fr.zcraft.zlib.core.ZLibComponent;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 
-public class ReadOnlyPlayersManager
+public class ReadOnlyPlayersManager extends ZLibComponent
 {
     private Map<UUID, ReadOnlyPlayer> readOnlyPlayers = new HashMap<>();
 
 
-    public ReadOnlyPlayersManager()
+    @Override
+    protected void onEnable()
     {
+        loadPlayers();
+    }
 
+    @Override
+    protected void onDisable()
+    {
+        savePlayers();
     }
 
 

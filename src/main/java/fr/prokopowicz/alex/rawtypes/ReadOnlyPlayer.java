@@ -2,6 +2,8 @@ package fr.prokopowicz.alex.rawtypes;
 
 import fr.prokopowicz.alex.ReadOnlyWarning;
 import fr.prokopowicz.alex.tasks.WarningTask;
+import fr.zcraft.zlib.components.i18n.I;
+import fr.zcraft.zlib.tools.text.ActionBar;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
@@ -49,7 +51,9 @@ public class ReadOnlyPlayer
         stopWarningDisplay();
 
         warningTask = new WarningTask(this);
-        warningTask.runTaskTimer(ReadOnlyWarning.get(), 2l, 20*60*10l);
+        warningTask.runTaskTimer(ReadOnlyWarning.get(), 2l, 20 * 60 * 10l);
+
+        ActionBar.sendPermanentMessage(getPlayerID(), I.t("{red}Read-only {gray}- {yellow}Read the chat"));
     }
 
     /**
@@ -61,6 +65,8 @@ public class ReadOnlyPlayer
         {
             warningTask.cancel();
             warningTask = null;
+
+            ActionBar.removeMessage(getPlayerID());
         }
     }
 
