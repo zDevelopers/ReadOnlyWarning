@@ -3,12 +3,9 @@ package fr.prokopowicz.alex.ReadOnlyWarning;
 import fr.prokopowicz.alex.ReadOnlyWarning.commands.AddReadOnlyCommand;
 import fr.prokopowicz.alex.ReadOnlyWarning.commands.ListReadOnlyCommand;
 import fr.prokopowicz.alex.ReadOnlyWarning.commands.RemoveReadOnlyCommand;
-import fr.prokopowicz.alex.ReadOnlyWarning.listeners.PlayerInteractionListener;
-import fr.prokopowicz.alex.ReadOnlyWarning.listeners.PlayerWarningListener;
 import fr.prokopowicz.alex.ReadOnlyWarning.players.ReadOnlyPlayersManager;
 import fr.zcraft.zlib.components.commands.Commands;
 import fr.zcraft.zlib.components.i18n.I18n;
-import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZPlugin;
 
 
@@ -33,9 +30,6 @@ public class ReadOnlyWarning extends ZPlugin
         I18n.useDefaultPrimaryLocale();
 
         readOnlyPlayersManager = loadComponent(ReadOnlyPlayersManager.class);
-
-        ZLib.registerEvents(new PlayerWarningListener());
-        ZLib.registerEvents(new PlayerInteractionListener());
 
         Commands.register("readonly", AddReadOnlyCommand.class, RemoveReadOnlyCommand.class, ListReadOnlyCommand.class);
         Commands.registerShortcut("readonly", AddReadOnlyCommand.class, "ro");
