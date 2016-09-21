@@ -1,11 +1,11 @@
-package fr.prokopowicz.alex;
+package fr.prokopowicz.alex.ReadOnlyWarning;
 
-import fr.prokopowicz.alex.commands.AddReadOnlyCommand;
-import fr.prokopowicz.alex.commands.ListReadOnlyCommand;
-import fr.prokopowicz.alex.commands.RemoveReadOnlyCommand;
-import fr.prokopowicz.alex.listeners.PlayerInteractionListener;
-import fr.prokopowicz.alex.listeners.PlayerWarningListener;
-import fr.prokopowicz.alex.managers.ReadOnlyPlayersManager;
+import fr.prokopowicz.alex.ReadOnlyWarning.commands.AddReadOnlyCommand;
+import fr.prokopowicz.alex.ReadOnlyWarning.commands.ListReadOnlyCommand;
+import fr.prokopowicz.alex.ReadOnlyWarning.commands.RemoveReadOnlyCommand;
+import fr.prokopowicz.alex.ReadOnlyWarning.listeners.PlayerInteractionListener;
+import fr.prokopowicz.alex.ReadOnlyWarning.listeners.PlayerWarningListener;
+import fr.prokopowicz.alex.ReadOnlyWarning.players.ReadOnlyPlayersManager;
 import fr.zcraft.zlib.components.commands.Commands;
 import fr.zcraft.zlib.components.i18n.I18n;
 import fr.zcraft.zlib.core.ZLib;
@@ -28,7 +28,7 @@ public class ReadOnlyWarning extends ZPlugin
 
         saveDefaultConfig();
 
-        loadComponents(I18n.class, ROConfig.class, Commands.class);
+        loadComponents(I18n.class, Config.class, Commands.class);
 
         I18n.useDefaultPrimaryLocale();
 

@@ -1,4 +1,4 @@
-package fr.prokopowicz.alex;
+package fr.prokopowicz.alex.ReadOnlyWarning;
 
 import fr.zcraft.zlib.components.configuration.Configuration;
 import fr.zcraft.zlib.components.configuration.ConfigurationItem;
@@ -8,7 +8,7 @@ import static fr.zcraft.zlib.components.configuration.ConfigurationItem.item;
 import static fr.zcraft.zlib.components.configuration.ConfigurationItem.section;
 
 
-public class ROConfig extends Configuration
+public class Config extends Configuration
 {
     static public final WarningMessageSection WARNING_MESSAGE = section("warning_message", WarningMessageSection.class);
     static public class WarningMessageSection extends ConfigurationSection

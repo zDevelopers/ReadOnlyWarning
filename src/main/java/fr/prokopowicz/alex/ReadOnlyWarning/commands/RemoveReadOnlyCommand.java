@@ -1,8 +1,8 @@
-package fr.prokopowicz.alex.commands;
+package fr.prokopowicz.alex.ReadOnlyWarning.commands;
 
-import fr.prokopowicz.alex.Permissions;
-import fr.prokopowicz.alex.ReadOnlyWarning;
-import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
+import fr.prokopowicz.alex.ReadOnlyWarning.Permissions;
+import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
+import fr.prokopowicz.alex.ReadOnlyWarning.players.ReadOnlyPlayer;
 import fr.zcraft.zlib.components.commands.Command;
 import fr.zcraft.zlib.components.commands.CommandException;
 import fr.zcraft.zlib.components.commands.CommandInfo;

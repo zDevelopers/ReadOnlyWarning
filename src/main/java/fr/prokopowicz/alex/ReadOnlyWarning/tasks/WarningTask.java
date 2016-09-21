@@ -1,8 +1,8 @@
-package fr.prokopowicz.alex.tasks;
+package fr.prokopowicz.alex.ReadOnlyWarning.tasks;
 
-import fr.prokopowicz.alex.ROConfig;
-import fr.prokopowicz.alex.ReadOnlyWarning;
-import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
+import fr.prokopowicz.alex.ReadOnlyWarning.Config;
+import fr.prokopowicz.alex.ReadOnlyWarning.players.ReadOnlyPlayer;
+import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.components.rawtext.RawText;
 import fr.zcraft.zlib.tools.PluginLogger;
@@ -36,10 +36,10 @@ public class WarningTask extends BukkitRunnable
 
         if (player != null && player.isOnline())
         {
-            final String header  = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.HEADER.get());
-            final String message = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.MESSAGE.get());
-            final String link    = ROConfig.WARNING_MESSAGE.LINK.get();
-            final String footer  = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.FOOTER.get());
+            final String header  = ChatColor.translateAlternateColorCodes('&', Config.WARNING_MESSAGE.HEADER.get());
+            final String message = ChatColor.translateAlternateColorCodes('&', Config.WARNING_MESSAGE.MESSAGE.get());
+            final String link    = Config.WARNING_MESSAGE.LINK.get();
+            final String footer  = ChatColor.translateAlternateColorCodes('&', Config.WARNING_MESSAGE.FOOTER.get());
 
             final String moderatorName = warnedPlayer.getModeratorID() != null ? Bukkit.getOfflinePlayer(warnedPlayer.getModeratorID()).getName() : I.t("{red}console{reset}");
 

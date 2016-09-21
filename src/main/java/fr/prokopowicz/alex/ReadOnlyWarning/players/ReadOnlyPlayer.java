@@ -1,7 +1,7 @@
-package fr.prokopowicz.alex.rawtypes;
+package fr.prokopowicz.alex.ReadOnlyWarning.players;
 
-import fr.prokopowicz.alex.ReadOnlyWarning;
-import fr.prokopowicz.alex.tasks.WarningTask;
+import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
+import fr.prokopowicz.alex.ReadOnlyWarning.tasks.WarningTask;
 import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.tools.text.ActionBar;
 import org.bukkit.scheduler.BukkitRunnable;

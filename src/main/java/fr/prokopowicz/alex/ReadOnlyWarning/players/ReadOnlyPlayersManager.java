@@ -1,7 +1,6 @@
-package fr.prokopowicz.alex.managers;
+package fr.prokopowicz.alex.ReadOnlyWarning.players;
 
 
-import fr.prokopowicz.alex.rawtypes.ReadOnlyPlayer;
 import fr.zcraft.zlib.core.ZLibComponent;
 
 import java.util.HashMap;

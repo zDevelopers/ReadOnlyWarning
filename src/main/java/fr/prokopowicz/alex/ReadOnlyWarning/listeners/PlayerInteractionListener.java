@@ -1,6 +1,6 @@
-package fr.prokopowicz.alex.listeners;
+package fr.prokopowicz.alex.ReadOnlyWarning.listeners;
 
-import fr.prokopowicz.alex.ReadOnlyWarning;
+import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
