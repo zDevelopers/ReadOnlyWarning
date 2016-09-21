@@ -6,6 +6,7 @@ author: "Jenjeur"
 authors:
   - "Amaury Carrade"
 
+
 commands:
     readonly:
         description: Generic ReadOnly command
@@ -15,6 +16,7 @@ commands:
         description: Removes a player from the read only list
     roinfos:
         description: Gives infos about players in read-only
+
 
 permissions:
     readonly.*:
