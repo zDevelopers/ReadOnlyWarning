@@ -86,15 +86,8 @@ public class ReadOnlyPlayer
         return reason;
     }
 
-
-    public void setModeratorID(UUID moderatorID)
-    {
-        this.moderatorID = moderatorID;
-    }
-
     public void setReason(String reason)
     {
         this.reason = reason;
     }
-
 }

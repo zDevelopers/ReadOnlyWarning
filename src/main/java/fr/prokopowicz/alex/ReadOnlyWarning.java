@@ -1,11 +1,12 @@
 package fr.prokopowicz.alex;
 
-import fr.prokopowicz.alex.commands.ReadOnlyCommand;
-import fr.prokopowicz.alex.commands.ReadOnlyInfosCommand;
-import fr.prokopowicz.alex.commands.UnReadOnlyCommand;
+import fr.prokopowicz.alex.commands.AddReadOnlyCommand;
+import fr.prokopowicz.alex.commands.ListReadOnlyCommand;
+import fr.prokopowicz.alex.commands.RemoveReadOnlyCommand;
 import fr.prokopowicz.alex.listeners.PlayerInteractionListener;
 import fr.prokopowicz.alex.listeners.PlayerWarningListener;
 import fr.prokopowicz.alex.managers.ReadOnlyPlayersManager;
+import fr.zcraft.zlib.components.commands.Commands;
 import fr.zcraft.zlib.components.i18n.I18n;
 import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZPlugin;
@@ -27,7 +28,7 @@ public class ReadOnlyWarning extends ZPlugin
 
         saveDefaultConfig();
 
-        loadComponents(I18n.class, ROConfig.class);
+        loadComponents(I18n.class, ROConfig.class, Commands.class);
 
         I18n.useDefaultPrimaryLocale();
 
@@ -36,9 +37,10 @@ public class ReadOnlyWarning extends ZPlugin
         ZLib.registerEvents(new PlayerWarningListener());
         ZLib.registerEvents(new PlayerInteractionListener());
 
-        getServer().getPluginCommand("ro").setExecutor(new ReadOnlyCommand());
-        getServer().getPluginCommand("unro").setExecutor(new UnReadOnlyCommand());
-        getServer().getPluginCommand("roinfos").setExecutor(new ReadOnlyInfosCommand());
+        Commands.register("readonly", AddReadOnlyCommand.class, RemoveReadOnlyCommand.class, ListReadOnlyCommand.class);
+        Commands.registerShortcut("readonly", AddReadOnlyCommand.class, "ro");
+        Commands.registerShortcut("readonly", RemoveReadOnlyCommand.class, "unro");
+        Commands.registerShortcut("readonly", ListReadOnlyCommand.class, "roinfos");
     }
 
 

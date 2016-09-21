@@ -7,9 +7,32 @@ authors:
   - "Amaury Carrade"
 
 commands:
+    readonly:
+        description: Generic ReadOnly command
     ro:
         description: Places a player on the read only list
     unro:
         description: Removes a player from the read only list
     roinfos:
-        description: Gives infos
+        description: Gives infos about players in read-only
+
+permissions:
+    readonly.*:
+        default: op
+        children:
+            readonly.add: true
+            readonly.remove: true
+            readonly.list: true
+
+
+    readonly.add:
+        description: "Allows an user to place a player in read-only."
+        default: op
+
+    readonly.remove:
+        description: "Allows an user to remove a player from read-only."
+        default: op
+
+    readonly.list:
+        description: "Allows an user to list the read-only players and to display infos about them."
+        default: op

@@ -41,7 +41,7 @@ public class WarningTask extends BukkitRunnable
             final String link    = ROConfig.WARNING_MESSAGE.LINK.get();
             final String footer  = ChatColor.translateAlternateColorCodes('&', ROConfig.WARNING_MESSAGE.FOOTER.get());
 
-            final String moderatorName = Bukkit.getOfflinePlayer(warnedPlayer.getModeratorID()).getName();
+            final String moderatorName = warnedPlayer.getModeratorID() != null ? Bukkit.getOfflinePlayer(warnedPlayer.getModeratorID()).getName() : I.t("{red}console{reset}");
 
 
             player.sendMessage("");
