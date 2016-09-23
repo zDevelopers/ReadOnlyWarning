@@ -6,6 +6,7 @@ import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.tools.text.ActionBar;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -30,16 +31,28 @@ public class ReadOnlyPlayer
     private String reason;
 
     /**
+     * When the sanction was added.
+     */
+    private Date creationDate;
+
+
+    /**
      * The task used to send the warning messages about readonly mode, null if player offline
      */
     private BukkitRunnable warningTask = null;
 
 
-    public ReadOnlyPlayer(UUID playerID, UUID moderatorID, String reason)
+    public ReadOnlyPlayer(final UUID playerID, final UUID moderatorID, final String reason)
+    {
+        this(playerID, moderatorID, reason, new Date());
+    }
+
+    public ReadOnlyPlayer(final UUID playerID, final UUID moderatorID, final String reason, final Date creationDate)
     {
         this.playerID = playerID;
         this.moderatorID = moderatorID;
         this.reason = reason;
+        this.creationDate = creationDate;
     }
 
 
@@ -86,7 +99,12 @@ public class ReadOnlyPlayer
         return reason;
     }
 
-    public void setReason(String reason)
+    public Date getCreationDate()
+    {
+        return creationDate;
+    }
+
+    public void setReason(final String reason)
     {
         this.reason = reason;
     }

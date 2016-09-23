@@ -79,7 +79,7 @@ public class ListReadOnlyCommand extends Command
             }
 
             sender.sendMessage(I.t("{green}Reason: {white}{0}", readOnlyPomf.getReason()));
-            sender.sendMessage(I.t("{gray}Sentenced by {0}", ReadOnlyWarning.get().getServer().getOfflinePlayer(readOnlyPomf.getModeratorID()).getName()));
+            sender.sendMessage(I.t("{gray}Sentenced by {0} on {1}", ReadOnlyWarning.get().getServer().getOfflinePlayer(readOnlyPomf.getModeratorID()).getName(), readOnlyPomf.getCreationDate()));
 
             sender.sendMessage("");
         }

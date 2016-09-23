@@ -4,6 +4,7 @@ package fr.prokopowicz.alex.ReadOnlyWarning.players;
 import fr.prokopowicz.alex.ReadOnlyWarning.Config;
 import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import fr.zcraft.zlib.components.i18n.I;
+import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZLibComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,11 +24,13 @@ import java.util.UUID;
 public class ReadOnlyPlayersManager extends ZLibComponent
 {
     private Map<UUID, ReadOnlyPlayer> readOnlyPlayers = new HashMap<>();
+    private ReadOnlyPlayersStore store;
 
 
     @Override
     protected void onEnable()
     {
+        store = ZLib.loadComponent(ReadOnlyPlayersStore.class);
         loadPlayers();
     }
 
@@ -43,7 +46,7 @@ public class ReadOnlyPlayersManager extends ZLibComponent
      */
     private void loadPlayers()
     {
-        // TODO
+
     }
 
     /**
@@ -95,6 +98,7 @@ public class ReadOnlyPlayersManager extends ZLibComponent
         final ReadOnlyPlayer splotch = new ReadOnlyPlayer(player, moderator, why);
         readOnlyPlayers.put(player, splotch);
 
+        savePlayers();
         return splotch;
     }
 
@@ -107,7 +111,10 @@ public class ReadOnlyPlayersManager extends ZLibComponent
      */
     public ReadOnlyPlayer deleteReadOnlyPlayer(UUID player)
     {
-        return readOnlyPlayers.remove(player);
+        final ReadOnlyPlayer removed = readOnlyPlayers.remove(player);
+
+        savePlayers();
+        return removed;
     }
 
 
