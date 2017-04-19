@@ -4,7 +4,7 @@
   <groupId>fr.prokopowicz.alex</groupId>
   <artifactId>ReadOnlyWarning</artifactId>
   <name>ReadOnlyWarning</name>
-  <version>0.3.2-Prototype</version>
+  <version>1.0</version>
   <description>Players are placed read-only to replace a ban for explanations</description>
   <build>
     <plugins>

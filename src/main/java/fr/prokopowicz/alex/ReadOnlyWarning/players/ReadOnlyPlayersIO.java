@@ -9,9 +9,11 @@ import fr.zcraft.zlib.components.worker.Worker;
 import fr.zcraft.zlib.components.worker.WorkerCallback;
 import fr.zcraft.zlib.components.worker.WorkerRunnable;
 import fr.zcraft.zlib.tools.FileUtils;
+import org.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -62,5 +64,18 @@ public class ReadOnlyPlayersIO extends Worker
                 return importedPlayers;
             }
         }, callback);
+    }
+
+    static void backupFile()
+    {
+        submitQuery(new WorkerRunnable<Void>()
+        {
+            @Override
+            public Void run() throws Throwable
+            {
+                FileUtil.copy(SAVE_TO_FILE, new File(ReadOnlyWarning.get().getDataFolder(), "read_only." + new Date().getTime() + ".json"));
+                return null;
+            }
+        });
     }
 }

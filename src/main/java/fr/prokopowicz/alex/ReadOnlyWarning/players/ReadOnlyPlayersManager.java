@@ -44,7 +44,8 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
             @Override
             public void errored(final Throwable exception)
             {
-                PluginLogger.error("Unable to load read-only players from file", exception);
+                ReadOnlyPlayersIO.backupFile();
+                PluginLogger.error("Unable to load read-only players from file. Players will be lost at next stop. A backup has been made just in case.", exception);
             }
         });
     }
