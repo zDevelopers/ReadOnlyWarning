@@ -11,8 +11,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -47,9 +48,11 @@ public class RemoveReadOnlyCommand extends Command
     {
         if (args.length == 1)
         {
-            final List<String> roPlayers = new ArrayList<>();
-            for (ReadOnlyPlayer readOnlyPlayer : ReadOnlyWarning.get().getReadOnlyPlayersManager().getReadOnlyPlayers().values())
-                roPlayers.add(Bukkit.getOfflinePlayer(readOnlyPlayer.getPlayerID()).getName());
+            final List<String> roPlayers = ReadOnlyWarning.get()
+                    .getReadOnlyPlayersManager().getReadOnlyPlayers().values().stream()
+                    .map(readOnlyPlayer -> Bukkit.getOfflinePlayer(readOnlyPlayer.getPlayerID()).getName())
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
 
             return getMatchingSubset(roPlayers, args[0]);
         }

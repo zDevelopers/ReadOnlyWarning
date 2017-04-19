@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class ReadOnlyPlayersIO extends Worker
 {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
     private static final File SAVE_TO_FILE = new File(ReadOnlyWarning.get().getDataFolder(), "read_only.json");
 
     static void saveReadOnlyPlayers()

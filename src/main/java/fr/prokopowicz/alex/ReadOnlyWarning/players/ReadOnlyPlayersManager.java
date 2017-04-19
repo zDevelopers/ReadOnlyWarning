@@ -7,6 +7,8 @@ import fr.zcraft.zlib.components.worker.WorkerCallback;
 import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZLibComponent;
 import fr.zcraft.zlib.tools.PluginLogger;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,6 +21,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -97,7 +100,9 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
         final ReadOnlyPlayer splotch = new ReadOnlyPlayer(player, moderator, why);
         readOnlyPlayers.put(player, splotch);
 
+        executeCommands(splotch, Config.COMMANDS.READONLY_ENABLED);
         ReadOnlyPlayersIO.saveReadOnlyPlayers();
+
         return splotch;
     }
 
@@ -113,6 +118,8 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
         final ReadOnlyPlayer removed = readOnlyPlayers.remove(player);
 
         ReadOnlyPlayersIO.saveReadOnlyPlayers();
+        executeCommands(removed, Config.COMMANDS.READONLY_DISABLED);
+
         return removed;
     }
 
@@ -125,6 +132,35 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
     public Map<UUID, ReadOnlyPlayer> getReadOnlyPlayers()
     {
         return new HashMap<>(readOnlyPlayers);
+    }
+
+
+    /**
+     * Executes the commands in the configuration file for the given player.
+     *
+     * @param player The player.
+     * @param commands The commands list.
+     */
+    private void executeCommands(ReadOnlyPlayer player, List<String> commands)
+    {
+        commands.forEach(command ->
+        {
+            try
+            {
+                Bukkit.getServer().dispatchCommand(
+                        Bukkit.getConsoleSender(), command
+                                .replace("{player}", Bukkit.getOfflinePlayer(player.getPlayerID()).getName())
+                                .replace("{playerID}", player.getPlayerID().toString())
+                                .replace("{moderator}", player.getModeratorID() != null ? Bukkit.getOfflinePlayer(player.getModeratorID()).getName() : "<console>")
+                                .replace("{moderatorID}", player.getModeratorID() != null ? player.getModeratorID().toString() : "<console>")
+                                .replace("{reason}", player.getReason())
+                );
+            }
+            catch (CommandException e)
+            {
+                PluginLogger.error("Command in ReadOnlyWarning config file failed", e);
+            }
+        });
     }
 
 

@@ -9,3 +9,17 @@ warning_message:
 warning_interval: 10  # Minutes
 
 block_chat: false
+
+# These commands are executed when a player is put into, or removed from, read-only
+# mode. You can use the following special tokens in the commands:
+# - {player} replaced by the player name
+# - {playerID} replaced by the player UUID
+# - {moderator} replaced by the moderator name (or "<console>")
+# - {moderatorID} replaced by the moderator UUID (or "<console>")
+# - {reason} replaced by the read-only reason (just set or to be removed)
+commands:
+    readonly_enabled:
+      -
+
+    readonly_disabled:
+      -
