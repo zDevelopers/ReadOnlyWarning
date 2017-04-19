@@ -159,6 +159,7 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
         {
             ev.setCancelled(true);
             I.sendT(ev.getPlayer(), "{ce}You cannot chat while in read-only mode.");
+            PluginLogger.info("Chat from {0} blocked (read-only): {1}", ev.getPlayer().getName(), ev.getMessage());
         }
     }
 
