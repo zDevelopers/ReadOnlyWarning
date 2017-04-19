@@ -1,0 +1,121 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-19 11:50+0200\n"
+"PO-Revision-Date: 2017-04-19 12:01+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.0.1\n"
+"Last-Translator: \n"
+"Language: fr_FR\n"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/players/ReadOnlyPlayer.java:69
+msgid "{red}Read-only {gray}- {yellow}Read the chat"
+msgstr "{red}Lecture seule {gray}- {yellow}Lisez le chat"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/players/ReadOnlyPlayersManager.java:163
+msgid "{ce}You cannot chat while in read-only mode."
+msgstr "{ce}Vous ne pouvez pas parler en mode lecture seule."
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/RemoveReadOnlyCommand.java:27
+msgid "Player not specified"
+msgstr "Joueur non renseigné"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/RemoveReadOnlyCommand.java:30
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/AddReadOnlyCommand.java:30
+msgid "Player not found"
+msgstr "Joueur introuvable"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/RemoveReadOnlyCommand.java:37
+msgid "Player successfully removed from read-only mode"
+msgstr "Le joueur a été retiré avec succès du mode lecture seule"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/RemoveReadOnlyCommand.java:41
+msgid "This player is not in read-only mode."
+msgstr "Ce joueur n'est pas en mode lecture seule."
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/AddReadOnlyCommand.java:27
+msgid "Nickname and reason expected."
+msgstr "Pseudo et raison attendue."
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/AddReadOnlyCommand.java:45
+msgid "Player successfully placed in ReadOnly mode"
+msgstr "Le joueur a été placé avec succès en mode Lecture seule"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:37
+msgid "No read only player registered."
+msgstr "Aucun joueur en lecture seule enregistré."
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:42
+msgid "{green}{bold}{0} player in read-only mode"
+msgid_plural "{green}{bold}{0} players in read-only mode"
+msgstr[0] "{green}{bold}{0} joueur en mode lecture seule"
+msgstr[1] "{green}{bold}{0} joueurs en mode lecture seule"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:48
+msgid "{gray}- {darkgreen}{0} {gray}({1})"
+msgstr "{gray}- {darkgreen}{0} {gray}({1})"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:49
+#, java-format
+msgid "Click for details on {0}"
+msgstr "Cliquez pour les détails sur {0}"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:61
+msgid "Player is not in the read-only list"
+msgstr "Le joueur n'est pas dans la liste de lecture seule"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:67
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:71
+msgid "{darkgreen}{bold}Read-only on {0}"
+msgstr "{darkgreen}{bold}Lecture seule sur {0}"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:73
+msgid "(remove)"
+msgstr "(supprimer)"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:76
+msgid "Click to remove the read-only mode"
+msgstr "Cliquez pour supprimer le mode lecture seule"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:81
+msgid "{green}Reason: {white}{0}"
+msgstr "{green}Motif: {white}{0}"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:82
+msgid "{gray}Sentenced by {0} on {1}"
+msgstr "{gray}Puni par {0} le {1}"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/tasks/WarningTask.java:44
+msgid "{red}console{reset}"
+msgstr "{red}console{reset}"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/tasks/WarningTask.java:50
+msgid ""
+"You've been placed in read-only by {darkgreen}{0}{reset}, because of the "
+"following:"
+msgstr ""
+"Vous avez été placé en lecture seule par {darkgreen}{0}{reset}, pour le "
+"motif suivant :"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/tasks/WarningTask.java:72
+#, java-format
+msgid "Open the link: {0}"
+msgstr "Ouvrir le lien : {0}"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/tasks/WarningTask.java:86
+msgid "{red}Read only"
+msgstr "{red}Lecture seule"
+
+#: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/tasks/WarningTask.java:86
+msgid "{yellow}Why? Please read the chat."
+msgstr "{yellow}Pourquoi ? Veuillez lire le chat."
