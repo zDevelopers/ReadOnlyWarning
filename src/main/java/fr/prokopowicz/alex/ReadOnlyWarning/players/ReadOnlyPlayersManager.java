@@ -9,6 +9,7 @@ import fr.zcraft.zlib.core.ZLibComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
@@ -21,7 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class ReadOnlyPlayersManager extends ZLibComponent
+public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
 {
     private Map<UUID, ReadOnlyPlayer> readOnlyPlayers = new HashMap<>();
     private ReadOnlyPlayersStore store;
