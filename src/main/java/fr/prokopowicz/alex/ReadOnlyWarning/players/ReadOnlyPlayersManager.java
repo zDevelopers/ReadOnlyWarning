@@ -1,6 +1,5 @@
 package fr.prokopowicz.alex.ReadOnlyWarning.players;
 
-
 import fr.prokopowicz.alex.ReadOnlyWarning.Config;
 import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import fr.zcraft.zlib.components.i18n.I;
