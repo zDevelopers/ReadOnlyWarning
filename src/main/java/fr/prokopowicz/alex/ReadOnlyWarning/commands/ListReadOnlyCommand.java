@@ -8,6 +8,8 @@ import fr.zcraft.zlib.components.commands.CommandException;
 import fr.zcraft.zlib.components.commands.CommandInfo;
 import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.components.rawtext.RawText;
+import fr.zcraft.zlib.tools.commands.PaginatedTextView;
+import fr.zcraft.zlib.tools.text.RawMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -28,7 +30,22 @@ public class ListReadOnlyCommand extends Command
     @Override
     public void run() throws CommandException
     {
+        Integer page = null;
+
         if (args.length == 0)
+        {
+            page = 1;
+        }
+        else if (args.length == 1 && args[0].startsWith("--page="))
+        {
+            try
+            {
+                page = Integer.valueOf(args[0].split("=")[1]);
+            }
+            catch (NumberFormatException ignored) {}
+        }
+
+        if (page != null)
         {
             final Collection<ReadOnlyPlayer> readOnlyPlayers = ReadOnlyWarning.get().getReadOnlyPlayersManager().getReadOnlyPlayers().values();
 
@@ -38,18 +55,10 @@ public class ListReadOnlyCommand extends Command
             }
             else
             {
-                sender.sendMessage("");
-                sender.sendMessage(I.tn("{green}{bold}{0} player in read-only mode", "{green}{bold}{0} players in read-only mode", readOnlyPlayers.size()));
-
-                for (ReadOnlyPlayer player : readOnlyPlayers)
-                {
-                    final String name = ReadOnlyWarning.get().getServer().getOfflinePlayer(player.getPlayerID()).getName();
-
-                    send(new RawText(I.t("{gray}- {darkgreen}{0} {gray}({1})", name, player.getReason()))
-                            .hover(new RawText(I.t("Click for details on {0}", name)))
-                            .command(ListReadOnlyCommand.class, name)
-                    );
-                }
+                new ROPlayersPagination()
+                        .setData(readOnlyPlayers.toArray(new ReadOnlyPlayer[readOnlyPlayers.size()]))
+                        .setCurrentPage(page)
+                        .display(sender);
             }
         }
         else
@@ -103,5 +112,32 @@ public class ListReadOnlyCommand extends Command
     public boolean canExecute(CommandSender sender)
     {
         return Permissions.LIST.grantedfTo(sender);
+    }
+
+    private class ROPlayersPagination extends PaginatedTextView<ReadOnlyPlayer>
+    {
+        @Override
+        protected void displayHeader(CommandSender receiver)
+        {
+            if (receiver instanceof Player) receiver.sendMessage("");
+            receiver.sendMessage(I.tn("{green}{bold}{0} player in read-only mode", "{green}{bold}{0} players in read-only mode", data().length));
+        }
+
+        @Override
+        protected void displayItem(CommandSender receiver, ReadOnlyPlayer player)
+        {
+            final String name = ReadOnlyWarning.get().getServer().getOfflinePlayer(player.getPlayerID()).getName();
+
+            RawMessage.send(receiver, new RawText(I.t("{gray}- {darkgreen}{0} {gray}({1})", name, player.getReason()))
+                    .hover(new RawText(I.t("Click for details on {0}", name)))
+                    .command(ListReadOnlyCommand.class, name)
+            );
+        }
+
+        @Override
+        protected String getCommandToPage(int page)
+        {
+            return super.getCommandToPage(page);
+        }
     }
 }

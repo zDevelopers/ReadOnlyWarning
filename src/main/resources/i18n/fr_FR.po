@@ -89,7 +89,7 @@ msgstr "Cliquez pour supprimer le mode lecture seule"
 
 #: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:81
 msgid "{green}Reason: {white}{0}"
-msgstr "{green}Motif: {white}{0}"
+msgstr "{green}Motif : {white}{0}"
 
 #: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/ListReadOnlyCommand.java:82
 msgid "{gray}Sentenced by {0} on {1}"
