@@ -28,6 +28,9 @@ public class ReadOnlyWarning extends ZPlugin
         loadComponents(I18n.class, Config.class, Commands.class);
 
         I18n.useDefaultPrimaryLocale();
+        if (Config.LOCALE.isDefined()) I18n.setPrimaryLocale(Config.LOCALE.get());
+
+        I18n.setFallbackLocale(Config.LOCALE.getDefaultValue());
 
         readOnlyPlayersManager = loadComponent(ReadOnlyPlayersManager.class);
 

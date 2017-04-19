@@ -4,12 +4,16 @@ import fr.zcraft.zlib.components.configuration.Configuration;
 import fr.zcraft.zlib.components.configuration.ConfigurationItem;
 import fr.zcraft.zlib.components.configuration.ConfigurationSection;
 
+import java.util.Locale;
+
 import static fr.zcraft.zlib.components.configuration.ConfigurationItem.item;
 import static fr.zcraft.zlib.components.configuration.ConfigurationItem.section;
 
 
 public class Config extends Configuration
 {
+    static public final ConfigurationItem<Locale> LOCALE = item("lang", Locale.ENGLISH);
+
     static public final WarningMessageSection WARNING_MESSAGE = section("warning_message", WarningMessageSection.class);
     static public class WarningMessageSection extends ConfigurationSection
     {
