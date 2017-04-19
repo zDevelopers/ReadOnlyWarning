@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) 2017 Alexandre Prokopowicz
+# This file is distributed under the same license as the main package.
+# Alexandre Prokopowicz, 2017
+# Amaury Carrade, 2017
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.1\n"
-"Last-Translator: \n"
+"Last-Translator: Alexandre Prokopowicz\n"
 "Language: fr_FR\n"
 
 #: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/players/ReadOnlyPlayer.java:69
@@ -37,7 +37,7 @@ msgstr "Joueur introuvable"
 
 #: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/RemoveReadOnlyCommand.java:37
 msgid "Player successfully removed from read-only mode"
-msgstr "Le joueur a été retiré avec succès du mode lecture seule"
+msgstr "Le joueur a été retiré avec succès du mode Lecture seule"
 
 #: src/main/java/fr/prokopowicz/alex/ReadOnlyWarning/commands/RemoveReadOnlyCommand.java:41
 msgid "This player is not in read-only mode."
