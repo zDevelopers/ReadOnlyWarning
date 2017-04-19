@@ -39,7 +39,7 @@ public class ReadOnlyPlayer
     /**
      * The task used to send the warning messages about readonly mode, null if player offline
      */
-    private BukkitRunnable warningTask = null;
+    private transient BukkitRunnable warningTask = null;
 
 
     public ReadOnlyPlayer(final UUID playerID, final UUID moderatorID, final String reason)

@@ -4,8 +4,10 @@ package fr.prokopowicz.alex.ReadOnlyWarning.players;
 import fr.prokopowicz.alex.ReadOnlyWarning.Config;
 import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import fr.zcraft.zlib.components.i18n.I;
+import fr.zcraft.zlib.components.worker.WorkerCallback;
 import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZLibComponent;
+import fr.zcraft.zlib.tools.PluginLogger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,37 +27,33 @@ import java.util.UUID;
 public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
 {
     private Map<UUID, ReadOnlyPlayer> readOnlyPlayers = new HashMap<>();
-    private ReadOnlyPlayersStore store;
 
 
     @Override
     protected void onEnable()
     {
-        store = ZLib.loadComponent(ReadOnlyPlayersStore.class);
-        loadPlayers();
+        ZLib.loadComponent(ReadOnlyPlayersIO.class);
+
+        ReadOnlyPlayersIO.loadReadOnlyPlayers(new WorkerCallback<Map<UUID, ReadOnlyPlayer>>()
+        {
+            @Override
+            public void finished(final Map<UUID, ReadOnlyPlayer> result)
+            {
+                readOnlyPlayers.putAll(result);
+            }
+
+            @Override
+            public void errored(final Throwable exception)
+            {
+                PluginLogger.error("Unable to load read-only players from file", exception);
+            }
+        });
     }
 
     @Override
     protected void onDisable()
     {
-        savePlayers();
-    }
-
-
-    /**
-     * Loads the players from the configuration file.
-     */
-    private void loadPlayers()
-    {
-
-    }
-
-    /**
-     * Saves the players to the configuration file.
-     */
-    public void savePlayers()
-    {
-        // TODO
+        ReadOnlyPlayersIO.saveReadOnlyPlayers();
     }
 
 
@@ -99,7 +97,7 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
         final ReadOnlyPlayer splotch = new ReadOnlyPlayer(player, moderator, why);
         readOnlyPlayers.put(player, splotch);
 
-        savePlayers();
+        ReadOnlyPlayersIO.saveReadOnlyPlayers();
         return splotch;
     }
 
@@ -114,7 +112,7 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
     {
         final ReadOnlyPlayer removed = readOnlyPlayers.remove(player);
 
-        savePlayers();
+        ReadOnlyPlayersIO.saveReadOnlyPlayers();
         return removed;
     }
 
