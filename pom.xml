@@ -2,24 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>fr.prokopowicz.alex</groupId>
   <artifactId>ReadOnlyWarning</artifactId>
-  <version>0.3.2-Prototype</version>
+  <version>1.0</version>
   <name>ReadOnlyWarning</name>
   <description>Players are placed read-only to replace a ban for explanations</description>
-  <!--Checklist
-  Check 0 : Ajouter une commande pour placer/retirer une personne sur la liste de lecture seule
-      "/Ro <Insérer le pseudonyme> <Insérer votre motif à la con>" "/UnRo <Insérer le pseudonyme>" "/roinfos"
-  Demi-Check 1 : Stocker une liste des gens en lecture seule
-       Et le faire bien (pas comme zyuiop/Blue)
-  Check 2 : Bloquer toute interaction
-       Ecouter et interdire des évènements (NSA-Zcraft)
-   Check 3 : Afficher un message à la connexion + un message périodique
-       "<Gros titre> LECTURE SEULE (waa)</Gros titre>
-       <Gras> Vous avez été placé en lecture seule. Connard. </Gras>
-       Motif invoqué : PrimordialE, avec un -e, connard -Alex, 27/08/2016 09:30
-       Veuillez vous expliquer sur le forum du serveur Zcraft
-       https://forum.zcraft.fr/viewtopic.php?id=1980
-   Demi-Check 4 : Garder en mémoire la date du placement en lecture seule, et qui en est le commanditaire
-   -->
   <build>
    <plugins>
      <plugin>
