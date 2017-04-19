@@ -1,5 +1,6 @@
 package fr.prokopowicz.alex.ReadOnlyWarning.players;
 
+import fr.prokopowicz.alex.ReadOnlyWarning.Config;
 import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import fr.prokopowicz.alex.ReadOnlyWarning.tasks.WarningTask;
 import fr.zcraft.zlib.components.i18n.I;
@@ -64,7 +65,7 @@ public class ReadOnlyPlayer
         stopWarningDisplay();
 
         warningTask = new WarningTask(this);
-        warningTask.runTaskTimer(ReadOnlyWarning.get(), 2l, 20 * 60 * 10l);
+        warningTask.runTaskTimer(ReadOnlyWarning.get(), 2L, 20 * 60 * Config.WARNING_INTERVAL.get());
 
         ActionBar.sendPermanentMessage(getPlayerID(), I.t("{red}Read-only {gray}- {yellow}Read the chat"));
     }

@@ -24,4 +24,6 @@ public class Config extends Configuration
     }
     
     static public final ConfigurationItem<Boolean> BLOCK_CHAT = item("block_chat", false);
+
+    static public final ConfigurationItem<Long> WARNING_INTERVAL = item("warning_interval", 10L);
 }

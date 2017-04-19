@@ -6,4 +6,6 @@ warning_message:
     link: "https://t.co"
     footer: "&7■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
 
+warning_interval: 10  # Minutes
+
 block_chat: false
