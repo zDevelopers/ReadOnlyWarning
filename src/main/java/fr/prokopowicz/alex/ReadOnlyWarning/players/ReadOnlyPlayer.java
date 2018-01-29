@@ -5,6 +5,8 @@ import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
 import fr.prokopowicz.alex.ReadOnlyWarning.tasks.WarningTask;
 import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.tools.text.ActionBar;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Date;
@@ -90,9 +92,19 @@ public class ReadOnlyPlayer
         return playerID;
     }
 
+    public OfflinePlayer getPlayer()
+    {
+        return Bukkit.getOfflinePlayer(playerID);
+    }
+
     public UUID getModeratorID()
     {
         return moderatorID;
+    }
+
+    public OfflinePlayer getModerator()
+    {
+        return Bukkit.getOfflinePlayer(moderatorID);
     }
 
     public String getReason()

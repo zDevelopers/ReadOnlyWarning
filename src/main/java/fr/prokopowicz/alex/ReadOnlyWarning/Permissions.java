@@ -65,7 +65,7 @@ public enum Permissions
      * @param permissible The permissible to check.
      * @return {@code true} if this permission is granted to the permissible.
      */
-    public boolean grantedfTo(Permissible permissible)
+    public boolean grantedTo(Permissible permissible)
     {
         return permissible.hasPermission(permission);
     }

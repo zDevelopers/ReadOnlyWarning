@@ -50,12 +50,17 @@ public class ReadOnlyPlayersIO extends Worker
         submitQuery(new WorkerRunnable<Map<UUID, ReadOnlyPlayer>>()
         {
             @Override
-            public Map<UUID, ReadOnlyPlayer> run() throws Throwable
+            public Map<UUID, ReadOnlyPlayer> run()
             {
                 final Map<UUID, ReadOnlyPlayer> importedPlayers = new HashMap<>();
                 final JsonObject dump = GSON.fromJson(FileUtils.readFile(SAVE_TO_FILE), JsonObject.class);
 
-                dump.getAsJsonArray("read_only").forEach(jsonPlayer ->
+                final JsonArray jsonPlayers = dump.getAsJsonArray("read_only");
+
+                if (jsonPlayers == null || jsonPlayers.size() == 0)
+                    return importedPlayers; // Nothing saved
+
+                jsonPlayers.forEach(jsonPlayer ->
                 {
                     final ReadOnlyPlayer roPlayer = GSON.fromJson(jsonPlayer, ReadOnlyPlayer.class);
                     importedPlayers.put(roPlayer.getPlayerID(), roPlayer);
@@ -71,7 +76,7 @@ public class ReadOnlyPlayersIO extends Worker
         submitQuery(new WorkerRunnable<Void>()
         {
             @Override
-            public Void run() throws Throwable
+            public Void run()
             {
                 FileUtil.copy(SAVE_TO_FILE, new File(ReadOnlyWarning.get().getDataFolder(), "read_only." + new Date().getTime() + ".json"));
                 return null;

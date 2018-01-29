@@ -1,15 +1,14 @@
 package fr.prokopowicz.alex.ReadOnlyWarning.tasks;
 
 import fr.prokopowicz.alex.ReadOnlyWarning.Config;
-import fr.prokopowicz.alex.ReadOnlyWarning.players.ReadOnlyPlayer;
 import fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning;
+import fr.prokopowicz.alex.ReadOnlyWarning.players.ReadOnlyPlayer;
 import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.components.rawtext.RawText;
 import fr.zcraft.zlib.tools.PluginLogger;
 import fr.zcraft.zlib.tools.text.RawMessage;
 import fr.zcraft.zlib.tools.text.Titles;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -41,11 +40,11 @@ public class WarningTask extends BukkitRunnable
             final String link    = Config.WARNING_MESSAGE.LINK.get();
             final String footer  = ChatColor.translateAlternateColorCodes('&', Config.WARNING_MESSAGE.FOOTER.get());
 
-            final String moderatorName = warnedPlayer.getModeratorID() != null ? Bukkit.getOfflinePlayer(warnedPlayer.getModeratorID()).getName() : I.t("{red}console{reset}");
+            final String moderatorName = warnedPlayer.getModeratorID() != null ? warnedPlayer.getModerator().getName() : I.t("{red}the console{reset}");
 
 
             player.sendMessage("");
-            if (!header.trim().isEmpty()) player.sendRawMessage(header);
+            if (!header.trim().isEmpty()) player.sendMessage(header);
 
             sendSplitText(player, I.t("You've been placed in read-only by {darkgreen}{0}{reset}, because of the following:", moderatorName));
             player.sendMessage("");
@@ -69,7 +68,16 @@ public class WarningTask extends BukkitRunnable
                     {
                         for (final String line : splitText(message))
                         {
-                            RawMessage.send(player, new RawText(line).uri(link).hover(new RawText(I.t("Open the link: {0}", link))).build());
+                            RawMessage.send(
+                                player,
+                                new RawText(line)
+                                    .uri(link)
+                                    .hover(
+                                        new RawText(I.t("Open the link") + "\n")
+                                            .then(link).color(ChatColor.GRAY)
+                                    )
+                                .build()
+                            );
                         }
                     }
                     catch (URISyntaxException e)
@@ -80,10 +88,10 @@ public class WarningTask extends BukkitRunnable
                 }
             }
 
-            if (!footer.trim().isEmpty()) player.sendRawMessage(footer);
+            if (!footer.trim().isEmpty()) player.sendMessage(footer);
 
 
-            Titles.displayTitle(player, 10, 120, 10, I.t("{red}Read only"), I.t("{yellow}Why? Please read the chat."));
+            Titles.displayTitle(player, 10, 240, 10, I.t("{red}Read only"), I.t("{yellow}Why? Please read the chat."));
         }
     }
 

@@ -1,13 +1,16 @@
 lang:
 
 warning_message:
-    header: "&7■■■■■■■■■■ &c&lCONTACTEZ UN GARDIEN &7■■■■■■■■■■"
+    header: "&7■■■■■■■■■■ &2&lCONTACTEZ UN GARDIEN &7■■■■■■■■■■"
     message: "Nous vous invitons à &6venir sur le forum&r afin de vous expliquer dans le sujet approprié et, ainsi, retrouver un accès normal à Zcraft."
     link: "https://t.co"
-    footer: "&7■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
+    footer: "&7■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
 
 warning_interval: 10  # Minutes
 
+# If true, players in read-only mode cannot chat.
+# Their blocked messages are still logged into the console, so you know
+# what they tried to say.
 block_chat: false
 
 # These commands are executed when a player is put into, or removed from, read-only

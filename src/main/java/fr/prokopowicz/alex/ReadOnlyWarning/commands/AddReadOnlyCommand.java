@@ -55,6 +55,6 @@ public class AddReadOnlyCommand extends Command
     @Override
     public boolean canExecute(CommandSender sender)
     {
-        return Permissions.ADD.grantedfTo(sender);
+        return Permissions.ADD.grantedTo(sender);
     }
 }

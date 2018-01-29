@@ -8,16 +8,25 @@ import fr.zcraft.zlib.core.ZLib;
 import fr.zcraft.zlib.core.ZLibComponent;
 import fr.zcraft.zlib.tools.PluginLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.CommandException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
@@ -120,6 +129,8 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
         ReadOnlyPlayersIO.saveReadOnlyPlayers();
         executeCommands(removed, Config.COMMANDS.READONLY_DISABLED);
 
+        removed.stopWarningDisplay();
+
         return removed;
     }
 
@@ -141,24 +152,24 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
      * @param player The player.
      * @param commands The commands list.
      */
-    private void executeCommands(ReadOnlyPlayer player, List<String> commands)
+    private void executeCommands(final ReadOnlyPlayer player, final List<String> commands)
     {
         commands.forEach(command ->
         {
+            final String executedCommand = command
+                    .replace("{player}", Bukkit.getOfflinePlayer(player.getPlayerID()).getName())
+                    .replace("{playerID}", player.getPlayerID().toString())
+                    .replace("{moderator}", player.getModeratorID() != null ? Bukkit.getOfflinePlayer(player.getModeratorID()).getName() : "<console>")
+                    .replace("{moderatorID}", player.getModeratorID() != null ? player.getModeratorID().toString() : "<console>")
+                    .replace("{reason}", player.getReason());
+
             try
             {
-                Bukkit.getServer().dispatchCommand(
-                        Bukkit.getConsoleSender(), command
-                                .replace("{player}", Bukkit.getOfflinePlayer(player.getPlayerID()).getName())
-                                .replace("{playerID}", player.getPlayerID().toString())
-                                .replace("{moderator}", player.getModeratorID() != null ? Bukkit.getOfflinePlayer(player.getModeratorID()).getName() : "<console>")
-                                .replace("{moderatorID}", player.getModeratorID() != null ? player.getModeratorID().toString() : "<console>")
-                                .replace("{reason}", player.getReason())
-                );
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), executedCommand);
             }
             catch (CommandException e)
             {
-                PluginLogger.error("Command in ReadOnlyWarning config file failed", e);
+                PluginLogger.error("Command in ReadOnlyWarning config file failed. Executed command:\n{0}\nFrom template:\n{1}", e, executedCommand, command);
             }
         });
     }
@@ -174,11 +185,77 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
     }
 
     @EventHandler
-    public void onEntityDamaged(EntityDamageByEntityEvent evnt)
+    public void onInventoryClick(InventoryClickEvent event)
     {
-        if (evnt.getDamager() instanceof Player)
-            if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(evnt.getDamager().getUniqueId()))
-                evnt.setCancelled(true);
+        if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getWhoClicked().getUniqueId()))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event)
+    {
+        if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getWhoClicked().getUniqueId()))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onInventoryInteract(InventoryInteractEvent event)
+    {
+        if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getWhoClicked().getUniqueId()))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onItemPickup(PlayerPickupItemEvent event)
+    {
+        if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getPlayer().getUniqueId()))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onItemDrop(PlayerDropItemEvent event)
+    {
+        if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getPlayer().getUniqueId()))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityDamaged(EntityDamageEvent event)
+    {
+        if (event.getEntity() instanceof Player)
+        {
+            if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getEntity().getUniqueId()))
+            {
+                event.setCancelled(true);
+
+                // If the player fell into the void, we teleport him/her
+                // to the spawn point.
+                if (event.getEntity().getLocation().getBlockY() < -100)
+                {
+                    Location spawnLocation = ((Player) event.getEntity()).getBedSpawnLocation();
+                    if (spawnLocation == null)
+                        spawnLocation = event.getEntity().getWorld().getSpawnLocation();
+
+                    event.getEntity().teleport(spawnLocation);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamaged(EntityDamageByEntityEvent event)
+    {
+        if (event.getDamager() instanceof Player)
+            if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getDamager().getUniqueId()))
+                event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerTarget(EntityTargetLivingEntityEvent event)
+    {
+        if (event.getTarget() instanceof Player)
+            if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getTarget().getUniqueId()))
+                event.setCancelled(true);
     }
 
     @EventHandler
@@ -186,6 +263,14 @@ public class ReadOnlyPlayersManager extends ZLibComponent implements Listener
     {
         if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(evt.getPlayer().getUniqueId()))
             evt.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerStarve(FoodLevelChangeEvent event)
+    {
+        if (event.getEntity() instanceof Player)
+            if (ReadOnlyWarning.get().getReadOnlyPlayersManager().isReadOnly(event.getEntity().getUniqueId()))
+                event.setCancelled(true);
     }
 
     @EventHandler (priority = EventPriority.HIGHEST, ignoreCancelled = true)

@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -72,7 +73,7 @@ public class ListReadOnlyCommand extends Command
 
             sender.sendMessage("");
 
-            if (!(sender instanceof Player) || !Permissions.REMOVE.grantedfTo(sender))
+            if (!(sender instanceof Player) || !Permissions.REMOVE.grantedTo(sender))
             {
                 sender.sendMessage(I.t("{darkgreen}{bold}Read-only on {0}", player.getName()));
             }
@@ -88,15 +89,23 @@ public class ListReadOnlyCommand extends Command
                 );
             }
 
-            sender.sendMessage(I.t("{green}Reason: {white}{0}", readOnlyPomf.getReason()));
-            sender.sendMessage(I.t("{gray}Sentenced by {0} on {1}", ReadOnlyWarning.get().getServer().getOfflinePlayer(readOnlyPomf.getModeratorID()).getName(), readOnlyPomf.getCreationDate()));
+            final String prefix = ChatColor.GRAY + " » " + ChatColor.RESET;
+
+            sender.sendMessage(prefix + I.t("{green}Reason: {white}{0}", readOnlyPomf.getReason()));
+
+            final UUID moderatorID = readOnlyPomf.getModeratorID();
+
+            if (moderatorID != null)
+                sender.sendMessage(prefix + I.t("{gray}Sentenced by {0} on {1}", ReadOnlyWarning.get().getServer().getOfflinePlayer(moderatorID).getName(), readOnlyPomf.getCreationDate()));
+            else
+                sender.sendMessage(prefix + I.t("{gray}Sentenced by someone using the console on {0}", readOnlyPomf.getCreationDate()));
 
             sender.sendMessage("");
         }
     }
 
     @Override
-    protected List<String> complete() throws CommandException
+    protected List<String> complete()
     {
         if (args.length == 1)
         {
@@ -114,7 +123,7 @@ public class ListReadOnlyCommand extends Command
     @Override
     public boolean canExecute(CommandSender sender)
     {
-        return Permissions.LIST.grantedfTo(sender);
+        return Permissions.LIST.grantedTo(sender);
     }
 
     private class ROPlayersPagination extends PaginatedTextView<ReadOnlyPlayer>
