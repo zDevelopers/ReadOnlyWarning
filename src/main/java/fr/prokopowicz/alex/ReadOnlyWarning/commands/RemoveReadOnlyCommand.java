@@ -43,6 +43,12 @@ public class RemoveReadOnlyCommand extends Command
             {
                 ReadOnlyWarning.get().getReadOnlyPlayersManager().deleteReadOnlyPlayer(roPlayer.getPlayerID());
                 success(I.t("Player successfully removed from read-only mode"));
+
+                if (roPlayer.getPlayer().isOnline() && (!(sender instanceof Player) || !((Player) sender).getUniqueId().equals(roPlayer.getPlayerID())))
+                {
+                    final String moderatorName = sender instanceof Player ? ((Player) sender).getDisplayName() : I.t("The console");
+                    roPlayer.getPlayer().getPlayer().sendMessage(I.t("{darkgreen}{0}{green} has given you access to the world back. You are no longer in read-only mode.", moderatorName));
+                }
             }
             else
             {

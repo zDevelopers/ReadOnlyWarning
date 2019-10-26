@@ -1,10 +1,11 @@
 name: ReadOnlyWarning
 description: Warns a player with a read-only word
 main: fr.prokopowicz.alex.ReadOnlyWarning.ReadOnlyWarning
-version: 1.0
+version: "1.0"
 author: "Jenjeur"
 authors:
   - "Amaury Carrade"
+api-version: "1.13"
 
 
 commands:
@@ -25,7 +26,6 @@ permissions:
             readonly.add: true
             readonly.remove: true
             readonly.list: true
-
 
     readonly.add:
         description: "Allows an user to place a player in read-only."
